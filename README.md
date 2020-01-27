@@ -1,2 +1,2 @@
-# PHP-Security-Framework
+# PHP-Security-Plugin
 PHP Security
