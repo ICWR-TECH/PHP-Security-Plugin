@@ -1,2 +1,2 @@
 # PHP-Security-Plugin
-PHP Security
+Mini PHP Security Plugin
