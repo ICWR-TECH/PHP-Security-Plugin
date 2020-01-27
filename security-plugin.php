@@ -1,10 +1,10 @@
 <?php
 
-#####################################
-# Mini PHP Security FrameWork V 1.0 #
-# By ICWR-TECH                      #
-# Copyright (c)2019 - Afrizal F.A   #
-#####################################
+###################################
+# Mini PHP Security Plugin V 1.0  #
+# By ICWR-TECH                    #
+# Copyright (c)2019 - Afrizal F.A #
+###################################
 
 // -------------------------- How To Use -------------------------- //
 // How To Use ?
