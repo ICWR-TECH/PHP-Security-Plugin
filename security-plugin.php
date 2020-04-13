@@ -1,104 +1,84 @@
 <?php
 
-###################################
-# Mini PHP Security Plugin V 1.0  #
-# By ICWR-TECH                    #
-# Copyright (c)2019 - Afrizal F.A #
-###################################
-
-// -------------------------- How To Use -------------------------- //
-// How To Use ?
-// Include This Script
-// You can Give function if you feel sensitive Page, Example code
-// security::filter_user_agent(); security::filter_sqli(); / security::filter_xss(); / security::filter_rce(); / security::filter_lfi();
-// ---------------------------------------------------------------- //
-
-error_reporting(0);
+// Simple Security Plugins By R&D ICWR
+// How to use ? include this script to your php config or php file
+// Copyright (c)2020 - R&D ICWR
 
 class security{
 
-    function block_page(){
-        return "<title>Security By ICWR-TECH</title><i>Security By ICWR-TECH</i>";
+    function block(){
+
+        $html="<title>Your Request Blocked</title>Your Request Blocked, Security by <a href=\"https://github.com/ICWR-TECH/PHP-Security-Plugin\">https://github.com/ICWR-TECH/PHP-Security-Plugin</a>";
+        return $html;
+
     }
 
     function filter_user_agent(){
-        $str="Google|google|facebook|Facebook|Opera|opera|Mozilla|mozilla|Safari|safari|WhatsApp|Whatsapp|whatsapp";
-        if(!preg_match("/$str/",$_SERVER['HTTP_USER_AGENT'])){
-            echo security::block_page();
+
+        $str="google|facebook|opera|mozilla|safari|whatsapp|telegram|twitter|yahoo|bing";
+
+        if(!preg_match("/$str/",strtolower($_SERVER['HTTP_USER_AGENT']))){
+
+            echo security::block();
             exit();
+
         }
+
     }
 
-    function filter_sqli(){
-        $str="union select|order by|group_concat|concat|'=''or'|'or'|'='";
-        if($_POST or $_GET){
-            foreach($_POST as $key=>$x){
-                if(!empty($_POST[$key]) && preg_match("/$str/",strtolower($_POST[$key]))){
-                    echo security::block_page();
+    function anti_xss(){
+
+        if(!empty($_GET)){
+
+            foreach($_GET as $key=>$value){
+
+                if(preg_match("/<|>/",strtolower($_GET[$key]))){
+
+                    echo security::block();
                     exit();
+
                 }
+
             }
-            foreach($_GET as $key=>$x){
-                if(!empty($_GET[$key]) && preg_match("/$str/",strtolower($_GET[$key]))){
-                    echo security::block_page();
-                    exit();
-                }
-            }
+
         }
+
     }
 
-    function filter_xss(){
-        if($_POST or $_GET){
-            foreach($_POST as $key=>$x){
-                if(!empty($_POST[$key]) && !strip_tags($x)){
-                    echo security::block_page();
+    function anti_sqli(){
+
+        if(!empty($_GET)){
+
+            $payload="\"|'|union select|union+select|order by|order+by";
+
+            foreach($_GET as $key=>$value){
+
+                if(preg_match("/$payload/",strtolower($_GET[$key]))){
+
+                    echo security::block();
                     exit();
+
                 }
+
             }
-            foreach($_GET as $key=>$x){
-                if(!empty($_GET[$key]) && !strip_tags($x)){
-                    echo security::block_page();
-                    exit();
-                }
-            }
+
         }
+
     }
 
-    function filter_rce(){
-        $str="<?php";
-        if($_POST or $_GET){
-            foreach($_POST as $key=>$x){
-                if(!empty($_POST[$key]) && preg_match("/$str/",$_POST[$key])){
-                    echo security::block_page();
-                    exit();
-                }
-            }
-            foreach($_GET as $key=>$x){
-                if(!empty($_GET[$key]) && preg_match("/$str/",$_GET[$key])){
-                    echo security::block_page();
-                    exit();
-                }
-            }
-        }
+    function all_use(){
+
+        security::filter_user_agent();
+        security::anti_xss();
+        security::anti_sqli();
+
     }
 
-    function filter_lfi(){
-        $str="../|./";
-        if($_POST or $_GET){
-            foreach($_POST as $key=>$x){
-                if(!empty($_POST[$key]) && preg_match("/$str/",$_POST[$key])){
-                    echo security::block_page();
-                    exit();
-                }
-            }
-            foreach($_GET as $key=>$x){
-                if(!empty($_GET[$key]) && preg_match("/$str/",$_GET[$key])){
-                    echo security::block_page();
-                    exit();
-                }
-            }
-        }
-    }
+}
+
+if(!empty($_GET)){
+
+    security::all_use();
 
 }
 
