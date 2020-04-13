@@ -8,6 +8,7 @@ class security{
 
     function block(){
 
+        header("HTTP/1.1 403 Forbidden" );
         $html="<title>Your Request Blocked</title>Your Request Blocked, Security by <a href=\"https://github.com/ICWR-TECH/PHP-Security-Plugin\">https://github.com/ICWR-TECH/PHP-Security-Plugin</a>";
         return $html;
 
