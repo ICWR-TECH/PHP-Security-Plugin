@@ -13,6 +13,12 @@ class security{
 
     }
 
+    function headers(){
+
+        header("X-Frame-Options: SAMEORIGIN");
+
+    }
+
     function filter_user_agent(){
 
         $str="google|facebook|opera|mozilla|safari|whatsapp|telegram|twitter|yahoo|bing";
@@ -68,6 +74,7 @@ class security{
 
     function all_use(){
 
+        security::headers();
         security::filter_user_agent();
         security::anti_xss();
         security::anti_sqli();
