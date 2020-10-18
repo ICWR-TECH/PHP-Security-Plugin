@@ -84,6 +84,8 @@ class security {
 
 }
 
+security::filter_user_agent();
+
 if (!empty($_GET)) {
 
     security::all_use();
