@@ -33,30 +33,11 @@ class security {
 
     }
 
-    function anti_xss() {
-
-        if (!empty($_GET)) {
-
-            foreach($_GET as $key => $value) {
-
-                if (preg_match("/<|>/", strtolower($_GET[$key]))) {
-
-                    echo security::block();
-                    exit();
-
-                }
-
-            }
-
-        }
-
-    }
-
-    function anti_sqli() {
+    function parameters_filter() {
 
         if (!empty($_GET)){
 
-            $payload = "\"|'|union select|union+select|order by|order+by";
+            $payload = "\"|'|-|.|+|\(|\)|<|>|;";
 
             foreach($_GET as $key => $value) {
 
@@ -75,9 +56,7 @@ class security {
 
     function all_use() {
 
-        security::filter_user_agent();
-        security::anti_xss();
-        security::anti_sqli();
+        security::parameters_filter();
 
     }
 
