@@ -75,7 +75,6 @@ class security {
 
     function all_use() {
 
-        security::headers();
         security::filter_user_agent();
         security::anti_xss();
         security::anti_sqli();
@@ -84,6 +83,7 @@ class security {
 
 }
 
+// security::headers(); // Custom Header
 security::filter_user_agent();
 
 if (!empty($_GET)) {
