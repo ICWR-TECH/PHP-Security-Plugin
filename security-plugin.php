@@ -37,11 +37,11 @@ class security {
 
         if (!empty($_GET)){
 
-            $payload = "\"|'|-|.|+|(|)|<|>";
+            $block_chars = "\"|'|<|>|\.|\(|\)";
 
             foreach($_GET as $key => $value) {
 
-                if (preg_match("/$payload/", strtolower($_GET[$key]))) {
+                if (preg_match("/$block_chars/", strtolower($_GET[$key]))) {
 
                     echo security::block();
                     exit();
