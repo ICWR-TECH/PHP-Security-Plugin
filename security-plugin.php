@@ -4,27 +4,27 @@
 // How to use ? include this script to your php config or php file
 // Copyright (c)2020 - R&D ICWR
 
-class security{
+class security {
 
-    function block(){
+    function block() {
 
-        header("HTTP/1.1 403 Forbidden" );
-        $html="<title>Your Request Blocked</title>Your Request Blocked, Security by <a href=\"https://github.com/ICWR-TECH/PHP-Security-Plugin\">https://github.com/ICWR-TECH/PHP-Security-Plugin</a>";
+        header("HTTP/1.1 403 Forbidden");
+        $html = "<title>Your Request Blocked</title>Your Request Blocked, Security by <a href=\"https://github.com/ICWR-TECH/PHP-Security-Plugin\">https://github.com/ICWR-TECH/PHP-Security-Plugin</a>";
         return $html;
 
     }
 
-    function headers(){
+    function headers() {
 
         header("X-Frame-Options: SAMEORIGIN");
 
     }
 
-    function filter_user_agent(){
+    function filter_user_agent() {
 
-        $str="google|facebook|opera|mozilla|safari|whatsapp|telegram|twitter|yahoo|bing";
+        $str = "google|facebook|opera|mozilla|safari|whatsapp|telegram|twitter|yahoo|bing";
 
-        if(!preg_match("/$str/",strtolower($_SERVER['HTTP_USER_AGENT']))){
+        if (!preg_match("/$str/", strtolower($_SERVER['HTTP_USER_AGENT']))) {
 
             echo security::block();
             exit();
@@ -33,34 +33,13 @@ class security{
 
     }
 
-    function anti_xss(){
+    function anti_xss() {
 
-        if(!empty($_GET)){
+        if (!empty($_GET)) {
 
-            foreach($_GET as $key=>$value){
+            foreach($_GET as $key => $value) {
 
-                if(preg_match("/<|>/",strtolower($_GET[$key]))){
-
-                    echo security::block();
-                    exit();
-
-                }
-
-            }
-
-        }
-
-    }
-
-    function anti_sqli(){
-
-        if(!empty($_GET)){
-
-            $payload="\"|'|union select|union+select|order by|order+by";
-
-            foreach($_GET as $key=>$value){
-
-                if(preg_match("/$payload/",strtolower($_GET[$key]))){
+                if (preg_match("/<|>/", strtolower($_GET[$key]))) {
 
                     echo security::block();
                     exit();
@@ -73,7 +52,28 @@ class security{
 
     }
 
-    function all_use(){
+    function anti_sqli() {
+
+        if (!empty($_GET)){
+
+            $payload = "\"|'|union select|union+select|order by|order+by";
+
+            foreach($_GET as $key => $value) {
+
+                if (preg_match("/$payload/", strtolower($_GET[$key]))) {
+
+                    echo security::block();
+                    exit();
+
+                }
+
+            }
+
+        }
+
+    }
+
+    function all_use() {
 
         security::headers();
         security::filter_user_agent();
@@ -84,7 +84,7 @@ class security{
 
 }
 
-if(!empty($_GET)){
+if (!empty($_GET)) {
 
     security::all_use();
 
