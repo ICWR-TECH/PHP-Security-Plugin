@@ -37,7 +37,7 @@ class security {
 
         if (!empty($_GET)){
 
-            $payload = "\"|'|-|.|+|\(|\)|<|>|;";
+            $payload = "\"|'|-|.|+|\(|\)|<|>|\;";
 
             foreach($_GET as $key => $value) {
 
