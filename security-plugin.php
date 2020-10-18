@@ -37,7 +37,7 @@ class security {
 
         if (!empty($_GET)){
 
-            $block_chars = "\"|'|<|>|\.|\(|\)";
+            $block_chars = "\"|'|<|>|\.|\(|\)|=";
 
             foreach($_GET as $key => $value) {
 
